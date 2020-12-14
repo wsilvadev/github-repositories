@@ -41,10 +41,10 @@ module.exports = function(ctx) {
         build: {
             env: ctx.dev
                 ? {
-                      API: JSON.stringify('https://api.github.com/')
+                      API: 'http://api.github.com'
                   }
                 : {
-                      API: JSON.stringify('https://api.github.com/')
+                      API: 'http://api.github.com'
                   },
             vueRouterMode: 'hash', // available values: 'hash', 'history'
 
