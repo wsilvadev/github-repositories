@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" style="max-width: 40rem">
         <q-input
             filled
             class="col-md-12 col-sm-12 col-xs-12 "
@@ -10,6 +10,7 @@
             @keyup.enter="Search"
             color="deep-purple"
             :type="type"
+            :rules="rules"
         >
             <template v-slot:prepend>
                 <q-icon :name="iconName" />
@@ -17,7 +18,7 @@
             <template v-if="value" v-slot:append>
                 <q-icon
                     name="cancel"
-                    @click.stop="value = ''"
+                    @click.stop="clear"
                     class="cursor-pointer"
                 />
             </template>
@@ -30,11 +31,15 @@ export default {
         label: String,
         iconName: String,
         type: String,
-        value: String
+        value: String,
+        rules: Array
     },
     methods: {
         Search: function() {
             this.$emit('Search');
+        },
+        clear: function() {
+            this.$emit('clear');
         }
     }
 };
