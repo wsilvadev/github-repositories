@@ -1,26 +1,11 @@
-# Quasar App (github-repository)
+# Quasar App (github-repository) webApp
 
-A Quasar Framework app
+# Web
 
-## Install the dependencies
-```bash
-npm install
-```
+**application web**
+![](/src/assets/webGithubRepos.gif)
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+# Mobile
 
-### Lint the files
-```bash
-npm run lint
-```
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+**application mobile**
+![](/src/assets/mobileGithubRepos.gif)
