@@ -4,8 +4,8 @@
             filled
             class="col-md-12 col-sm-12 col-xs-12 "
             outlined
-            :value="value"
-            @input="$emit('input', $event)"
+            :value="inputTextChanged"
+            @input="changeText"
             :label="label"
             @keyup.enter="Search"
             color="deep-purple"
@@ -15,10 +15,10 @@
             <template v-slot:prepend>
                 <q-icon :name="iconName" />
             </template>
-            <template v-if="value" v-slot:append>
+            <template v-if="inputTextChanged" v-slot:append>
                 <q-icon
                     name="cancel"
-                    @click.stop="clear"
+                    @click.stop="changeText('')"
                     class="cursor-pointer"
                 />
             </template>
@@ -26,20 +26,25 @@
     </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import { setInputText } from '../store/posts/actions';
 export default {
     props: {
         label: String,
         iconName: String,
         type: String,
-        value: String,
         rules: Array
     },
+    computed: {
+        ...mapGetters('Posts', ['inputTextChanged'])
+    },
     methods: {
+        ...mapActions('Posts', ['setInputText']),
         Search: function() {
             this.$emit('Search');
         },
-        clear: function() {
-            this.$emit('clear');
+        changeText: function(valueText) {
+            this.setInputText(valueText);
         }
     }
 };
