@@ -3,9 +3,9 @@
 # Web
 
 **application web**
-![](/src/assets/webGithubRepos.gif)
+![](/src/assets/WebGithub1.gif)
 
 # Mobile
 
 **application mobile**
-![](/src/assets/mobileGithubRepos.gif)
+![](/src/assets/MobileGithub1.gif)
