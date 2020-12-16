@@ -13,7 +13,7 @@
         <div
             :class="
                 this.$q.screen.width > 402
-                    ? 'text-center q-ml-xl '
+                    ? 'text-center q-ml-xl'
                     : 'text-center '
             "
         >
@@ -27,7 +27,7 @@
                 {{ this.$route.params.name }}
             </div>
         </div>
-        <div class="q-mt-xl">
+        <div class="q-gutter-y-md q-mt-xs">
             <q-card>
                 <q-tabs
                     v-model="tab"
@@ -39,12 +39,13 @@
                 >
                     <q-tab name="overview" label="overview" />
                     <q-tab
-                        name="repos"
+                        name="repositories"
                         :label="
                             'Repositories (' +
                                 this.$route.params.public_repos +
                                 ')'
                         "
+                        v-on:click="setRepositories"
                     />
                 </q-tabs>
 
@@ -57,9 +58,9 @@
                         <div class="text-h6">Bio</div>
                         {{ this.$route.params.bio }}
                     </q-tab-panel>
-                    <q-tab-panel name="repos">
-                        <ul v-for="repos in repositories">
-                            <li>{{ repos.name }}</li>
+                    <q-tab-panel name="repositories">
+                        <ul v-for="repository in repos">
+                            <li>{{ repository.name }}</li>
                         </ul>
                     </q-tab-panel>
                 </q-tab-panels>
@@ -74,25 +75,27 @@ export default {
     name: 'PageRepos',
     data() {
         return {
-            tab: 'overview',
-            repositories: []
+            tab: 'overview'
         };
     },
-    mounted() {
-        this.openUrl();
+    computed: {
+        ...mapState('Posts', ['repos'])
     },
 
     methods: {
-        ...mapActions('Posts', ['setPosts']),
+        ...mapActions('Posts', ['setRepos']),
 
         backPath: function() {
             this.$router.push('/');
         },
-        openUrl: function() {
-            console.log(this.repositories);
-            this.setPosts(this.$route.params.login + '/repos').then(
-                item => (this.repositories = item)
-            );
+
+        setRepositories: function() {
+            this.setRepos(this.$route.params.login).catch(error => {
+                this.$q.notify({
+                    type: 'negative',
+                    message: error
+                });
+            });
         }
     }
 };
