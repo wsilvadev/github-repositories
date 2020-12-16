@@ -4,9 +4,7 @@
             <Input
                 iconName="search"
                 label="Buscar usuários"
-                v-model="userName"
                 type="text"
-                @clear="clearName"
                 @Search="Submit"
                 :rules="[
                     val =>
@@ -18,7 +16,7 @@
             <div :class="size ? 'cardContainer' : 'column'">
                 <div
                     class="q-pa-md "
-                    v-for="user in users"
+                    v-for="user in posts"
                     :key="user.id"
                     style="max-width: 30rem"
                     @click="route(user)"
@@ -40,8 +38,9 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
 import Input from '../components/Input';
+
 export default {
     name: 'PageIndex',
     components: {
@@ -49,8 +48,6 @@ export default {
     },
     data() {
         return {
-            userName: '',
-            users: [],
             size: true
         };
     },
@@ -64,14 +61,12 @@ export default {
     methods: {
         ...mapActions('Posts', ['setPosts']),
         Submit: function() {
-            this.setPosts(this.userName)
-                .then(data => this.users.push(data))
-                .catch(() => {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: 'Usuário não encontrado'
-                    });
+            this.setPosts().catch(() => {
+                this.$q.notify({
+                    type: 'negative',
+                    message: 'Usu?rio n?o encontrado'
                 });
+            });
         },
         clearName: function() {
             this.userName = '';
